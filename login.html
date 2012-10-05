@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+    <!--<meta http-equiv="refresh" content="2">-->
+  </head>
+  <body>
+    <div id="wrapper">
+      {% include 'nav.html' %}
+      <div id="content">
+        <h2>Log in as a particular user</h2>
+        <form action="/login" method="post">
+          <p><input type="radio" name="user" value="Customer"> A. Customer</p>
+          <p><input type="radio" name="user" value="Storeman"> Storeman (Dock Worker)</p>
+          <p><input type="radio" name="user" value="Staff"> Staff (Pool Technician)</p>
+          <p><input type="radio" name="user" value="Bob"> Bob (The Boss)</p>
+          <p><input type="radio" name="user" value="Admin"> Administrator (The IT Guy)</p>
+          <input type="submit" value="Log In">
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+    <h1>&nbsp;Bob's Pool Service</h1>
+    {% if user %}
+      <span style="color: white; box-shadow: inset 5px 5px 5px silver; position: relative; top:-40px; left: 540px; background-color: #368196; border-radius: 5px; padding: 0 5px 0 5px; border: 1px solid blue;">
+        Welcome, {{user}}
+      </span>
+    {% endif %}
+    <div style="height: 18px; background-color:#7ED4E3; padding-top: 1px; text-align: center; border-top: 2px solid silver; border-bottom: 2px solid silver;">
+      <a href="/"><div class="menu">Home</div></a>
+      <a href="/services"><div class="menu">Services</div></a>
+      <a href="/instreet"><div class="menu">In Your Street?</div></a>
+      <a href="/contact"><div class="menu">Contact Us</div></a>
+      {% if user == "" or user == None %}
+        <a href="login"><div class="menu">Log In</div></a>
+      {% endif %}
+      
+      {% if user == "Bob" %}
+        <a href="add_customer"><div class="menu"><span style="color:#BE0000">Add Customer</span></div></a>
+        <a href="list_customers"><div class="menu"><span style="color:#BE0000">List Customers</span></div></a>
+      {% endif %}
+      
+      {% if user == "Storeman" %}
+        <a href="add_customer"><div class="menu"><span style="color:#BE0000">Add Stock</span></div></a>
+        <a href="list_customers"><div class="menu"><span style="color:#BE0000">List Stock</span></div></a>
+      {% endif %}
+      
+      {% if user == "Staff" %}
+        <a href="add_customer"><div class="menu"><span style="color:#BE0000">Todays Jobs</span></div></a>
+      {% endif %}
+      
+      {% if user == "Customer" %}
+        <a href="add_customer"><div class="menu"><span style="color:#BE0000">Edit My Account</span></div></a>
+      {% endif %}
+      
+      {% if user %}
+        <a href="logout"><div class="menu">Log Out</div></a>
+      {% endif %}
+      
+    </div>

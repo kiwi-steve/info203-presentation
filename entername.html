@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+    <!--<meta http-equiv="refresh" content="2">-->
+  </head>
+  <body>
+    <div id="wrapper">
+      {% include 'nav.html' %}
+      <div id="content">
+        <h2>Add Customer</h2>
+        <form action="/add_customer" method="post">
+          <div>First Name: <input type="text" name="fname" size="10" cols="30"></div>
+          <div>Last Name: <input type="text" name="lname" size="10" cols="30"></div>
+          <div>Address: <textarea name="address" rows="3" cols="60"></textarea></div>
+          <div><input type="submit" value="Add Customer"></div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

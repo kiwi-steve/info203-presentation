@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+    <!--<meta http-equiv="refresh" content="2">-->
+  </head>
+  <body>
+    <div id="wrapper">
+    {% include 'nav.html' %}
+    <div id="content">
+      {% for customer in customers %}
+        <p>{{ loop.index }}.&nbsp;<b>{{ customer.fname }}&nbsp;{{ customer.lname }}</b>: {{ customer.address }}</p>
+      {% endfor %}
+    </div>
+  </body>
+</html>
