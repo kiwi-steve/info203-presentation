@@ -109,6 +109,7 @@ class InStreet(BaseHandler):
             self.session['yes'] = "0"
         if len(email) > 0:
             self.sendmail(email, address, postcode)
+            logging.info("Contact request email sent to admins")
         self.redirect('/instreet')
 
     def sendmail(self, email, address, postcode):
@@ -219,8 +220,8 @@ app = webapp2.WSGIApplication([
     ('/services', Services),
     ('/contact', ContactUs),
     ('/instreet', InStreet)],
-    debug=True,
-    config=config)
+    debug = True,
+    config = config)
 
 
 def main():
