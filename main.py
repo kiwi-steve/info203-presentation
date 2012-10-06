@@ -207,7 +207,7 @@ class ListStock(BaseHandler):
         items = []
         costprices = []
         sellprices = []
-        query = db.GqlQuery("SELECT * FROM Stock ORDER BY itemname ASC")
+        query = db.GqlQuery("SELECT * FROM Stock ORDER BY stockcode ASC")
         for item in query:
             cost = str(item.costprice)
             sell = str(item.sellprice)
