@@ -7,8 +7,15 @@
     <div id="wrapper">
     {% include 'nav.html' %}
     <div id="content">
-      {% for customer in customers %}
-        <p>{{ loop.index }}.&nbsp;<b>{{ customer.fname }}&nbsp;{{ customer.lname }}</b>: {{ customer.address }}</p>
+    <h2>Customer List</h2>
+      <table class="list" width="750px">
+      <tr><th>ID</th><th>NAME</th><th>ADDRESS</th></tr>
+        {% for customer in customers %}
+        <tr class="{{ loop.cycle('odd', 'even') }}">
+          <td>{{ loop.index }}.</td>
+          <td><b>{{ customer.fname }} {{ customer.lname }}</b></td>
+          <td>{{ customer.address }}<//td>
+        </tr>
       {% endfor %}
     </div>
   </body>

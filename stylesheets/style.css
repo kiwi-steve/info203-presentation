@@ -3,6 +3,11 @@ body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
+h1, h2 {
+    padding: 10px;
+    margin: 0;
+}
+
 #wrapper {
 	background-color: lightblue;
 	min-height: 600px;
@@ -29,6 +34,20 @@ body {
 	font-weight: bold;
 	text-align: center;
 	width: 100%;
+}
+
+#user {
+    color: white;
+    box-shadow: inset 5px 5px 5px silver;
+    position: relative;
+    top:-52px;
+    right: -540px;
+    background-color: #368196;
+    border-radius: 5px;
+    padding: 0 5px 0 5px;
+    border: 2px solid teal;
+    width: 200px;
+    text-align: center;
 }
 
 img {
@@ -69,11 +88,14 @@ input,select,textarea {
 
 table.list {
     border: 1px solid silver;
+    padding: 0px;
+    border-collapse: collapse;
+    max-width: 760px;
 }
 
 table.list td {
     border-bottom: 1px solid silver;
-    padding: 0 5px;
+    padding: 3px 5px;
     text-align: center;
 }
 
@@ -102,4 +124,12 @@ table.list th {
 
 .borer {
 	border:1px solid #D8D9D9;
+}
+
+.odd {
+    background-color: #ddd;
+}
+
+.even {
+    background-color: #eee;
 }

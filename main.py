@@ -85,7 +85,7 @@ class InStreet(BaseHandler):
                         Yes! We work in your neighbourhood.</div>")
             else:
                 self.response.out.write("<div class=\"flash\"> \
-                        Sorry! We're not in your area.</div>")
+                        Sorry! We're not in your area yet.</div>")
             del self.session['yes']
         template_values = {
             'user': user

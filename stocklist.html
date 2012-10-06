@@ -7,10 +7,17 @@
     <div id="wrapper">
     {% include 'nav.html' %}
     <div id="content">
-      <table class ="list"><tr>
-          <th>CODE</th><th>NAME</th><th>COST PRICE</th><th>RETAIL PRICE</th><th>STOCK QTY</th></tr><tr>
+      <h2>Stock List</h2>
+      <table class="list">
+        <tr><th>CODE</th><th>NAME</th><th>COST PRICE</th><th>RETAIL PRICE</th><th>STOCK QTY</th></tr>
         {% for item in items %}
-          <td>{{ item.stockcode }}</td><td title="{{ item.description }}">{{ item.itemname }}</td><td>{{ cost[loop.index0] }}</td><td>{{ sell[loop.index0] }}</td><td>{{ item.stocklevel }}</tr><tr>
+          <tr title="{{ item.description }}" class="{{ loop.cycle('odd', 'even') }}">
+            <td>{{ item.stockcode }}</td>
+            <td>{{ item.itemname }}</td>
+            <td>{{ cost[loop.index0] }}</td>
+            <td>{{ sell[loop.index0] }}</td>
+            <td>{{ item.stocklevel }}</td>
+          </tr>
         {% endfor %}
       </table>
     </div>
