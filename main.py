@@ -94,13 +94,13 @@ class InStreet(BaseHandler):
         self.response.out.write(template.render(template_values))
 
     def post(self):
-        streets   = ["Ilam Rd", "Creyke Rd", "Clyde Rd", "Kirkwood Ave",
+        streets = ["Ilam Rd", "Creyke Rd", "Clyde Rd", "Kirkwood Ave",
                     "Forestry Rd", "Arts Rd", "Fine Arts Ln", "Science Rd",
                     "Engineering Rd", "University Dr", "Montana Ave"]
         postcodes = ['8041']
-        address   = self.request.get('address')
-        postcode  = self.request.get('postcode')
-        email     = self.request.get('email')
+        address = self.request.get('address')
+        postcode = self.request.get('postcode')
+        email = self.request.get('email')
         logging.info("Address is in range: {0}".format(address in streets))
         logging.info("Postcode is in range: {0}".format(postcode in postcodes))
         if address in streets or postcode in postcodes:
@@ -159,6 +159,73 @@ class ListCustomers(BaseHandler):
         self.response.out.write(template.render(template_values))
 
 
+class AddStock(BaseHandler):
+    def get(self):
+        user = self.session.get('user')
+        if self.session.get('added'):
+            self.response.out.write(
+                    "<div class=\"flash\">New Stock Item Added!</div>")
+            del self.session['added']
+        template_values = {
+            'user': user
+            }
+        template = jinja_environment.get_template('addstock.html')
+        self.response.out.write(template.render(template_values))
+
+    def post(self):
+        stock = Stock()
+        stock.itemname = self.request.get('itemname')
+        stock.stockcode = self.request.get('stockcode')
+        stock.description = self.request.get('description')
+        costprice = self.request.get('costprice')
+        sellprice = self.request.get('sellprice')
+        stocklevel = self.request.get('stocklevel')
+        stock.supplier = self.request.get('supplier')
+        # Remove $ and . from prices (assuming they will be $45.26 or similar)
+        cost = costprice.replace("$", "")
+        # Allow for value in dollars only (45 becomes 4500)
+        if not '.' in cost:
+            cost += "00"
+        cost = cost.replace(".", "")
+        sell = sellprice.replace("$", "")
+        if not '.' in sell:
+            sell += "00"
+        sell = sell.replace(".", "")
+        # Now convert to a cents value for integer storage
+        stock.costprice = int(cost)
+        stock.sellprice = int(sell)
+        # And convert the stock level to an int
+        stock.stocklevel = int(stocklevel)
+        stock.put()
+        self.session['added'] = True
+        self.redirect('/add_stock')
+
+
+class ListStock(BaseHandler):
+    def get(self):
+        user = self.session.get('user')
+        items = []
+        costprices = []
+        sellprices = []
+        query = db.GqlQuery("SELECT * FROM Stock ORDER BY itemname ASC")
+        for item in query:
+            cost = str(item.costprice)
+            sell = str(item.sellprice)
+            cost = '$' + cost[:-2] + '.' + cost[-2:]
+            sell = '$' + sell[:-2] + '.' + sell[-2:]
+            items.append(item)
+            costprices.append(cost)
+            sellprices.append(sell)
+        template_values = {
+            'items': items,
+            'user': user,
+            'cost': costprices,
+            'sell': sellprices
+            }
+        template = jinja_environment.get_template('stocklist.html')
+        self.response.out.write(template.render(template_values))
+
+
 class LogIn(BaseHandler):
     def get(self):
         if self.session.get('user'):
@@ -189,20 +256,21 @@ class LogOut(BaseHandler):
 
 
 class Customer(db.Model):
-    fname       = db.StringProperty(multiline = False)
-    lname       = db.StringProperty(multiline = False)
-    address     = db.StringProperty(multiline = True)
-    postcode    = db.IntegerProperty()
-    pooldetails = db.StringProperty(multiline = True)
+    fname = db.StringProperty()
+    lname = db.StringProperty()
+    address = db.StringProperty(multiline=True)
+    postcode = db.IntegerProperty()
+    pooldetails = db.StringProperty(multiline=True)
 
 
 class Stock(db.Model):
-    stockcode   = db.StringProperty(multiline = False)
-    description = db.StringProperty(multiline = False)
-    costprice   = db.IntegerProperty()
-    sellprice   = db.IntegerProperty()
-    stocklevel  = db.IntegerProperty()
-    supplier    = db.StringProperty(multiline = False)
+    itemname = db.StringProperty()
+    stockcode = db.StringProperty()
+    description = db.StringProperty(multiline=True)
+    costprice = db.IntegerProperty()
+    sellprice = db.IntegerProperty()
+    stocklevel = db.IntegerProperty()
+    supplier = db.StringProperty()
 
 
 config = {}
@@ -219,9 +287,11 @@ app = webapp2.WSGIApplication([
     ('/list_customers', ListCustomers),
     ('/services', Services),
     ('/contact', ContactUs),
-    ('/instreet', InStreet)],
-    debug = True,
-    config = config)
+    ('/instreet', InStreet),
+    ('/add_stock', AddStock),
+    ('/list_stock', ListStock)],
+    debug=True,
+    config=config)
 
 
 def main():

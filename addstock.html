@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+    <!--<meta http-equiv="refresh" content="2">-->
+  </head>
+  <body>
+    <div id="wrapper">
+      {% include 'nav.html' %}
+      <div id="content">
+        <h2>Add New Stock Item</h2>
+        <table><tr>
+        <form action="/add_stock" method="post">
+          <td>Item Name:</td><td><input type="text" name="itemname" size="30" cols="30"></td></tr><tr>
+          <td>Stock Code:</td><td><input type="text" name="stockcode" size="30" cols="30"></td></tr><tr>
+          <td>Description:</td><td><textarea name="description" rows="3" cols="60"></textarea></td></tr><tr>
+          <td>Cost Price:</td><td><input type="text" name="costprice" size="30" cols="30"></td></tr><tr>
+          <td>Sell Price:</td><td><input type="text" name="sellprice" size="30" cols="30"></td></tr><tr>
+          <td>Stock Level:</td><td><input type="text" name="stocklevel" size="30" cols="30"></td></tr><tr>
+          <td>Supplier:</td><td><input type="text" name="supplier" size="30" cols="30"></td></tr><tr>
+          <td><input type="submit" value="Add Item"></td></tr>
+        </form>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

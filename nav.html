@@ -12,27 +12,27 @@
       {% if user == "" or user == None %}
         <a href="login"><div class="menu">Log In</div></a>
       {% endif %}
-      
+
       {% if user == "Bob" %}
         <a href="add_customer"><div class="menu"><span style="color:#BE0000">Add Customer</span></div></a>
         <a href="list_customers"><div class="menu"><span style="color:#BE0000">List Customers</span></div></a>
       {% endif %}
-      
+
       {% if user == "Storeman" %}
-        <a href="add_customer"><div class="menu"><span style="color:#BE0000">Add Stock</span></div></a>
-        <a href="list_customers"><div class="menu"><span style="color:#BE0000">List Stock</span></div></a>
+        <a href="add_stock"><div class="menu"><span style="color:#BE0000">Add Stock</span></div></a>
+        <a href="list_stock"><div class="menu"><span style="color:#BE0000">List Stock</span></div></a>
       {% endif %}
-      
+
       {% if user == "Staff" %}
         <a href="add_customer"><div class="menu"><span style="color:#BE0000">Todays Jobs</span></div></a>
       {% endif %}
-      
+
       {% if user == "Customer" %}
         <a href="add_customer"><div class="menu"><span style="color:#BE0000">Edit My Account</span></div></a>
       {% endif %}
-      
+
       {% if user %}
         <a href="logout"><div class="menu">Log Out</div></a>
       {% endif %}
-      
+
     </div>

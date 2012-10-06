@@ -67,6 +67,23 @@ font-weight:bold;
 color:#2091A3;
 }
 
+table {
+    border: 1px solid silver;
+}
+
+td {
+    border: 1px solid white;
+    padding: 0 5px;
+    text-align: center;
+}
+
+th {
+    font-size: 10px;
+    font-color: red;
+    background-color: silver;
+    min-width: 100px;
+}
+
 .text {
 color:#444444;
 text-align:justify;
