@@ -3,6 +3,8 @@ body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
+
+
 h1, h2 {
     padding: 10px;
     margin: 0;
@@ -91,6 +93,15 @@ table.list {
     padding: 0px;
     border-collapse: collapse;
     max-width: 760px;
+}
+
+table.list a {
+    color: #333;
+    text-decoration: none;
+}
+
+table.list a:hover {
+    text-decoration: underline;
 }
 
 table.list td {
