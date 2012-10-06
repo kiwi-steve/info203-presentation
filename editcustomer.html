@@ -1,0 +1,22 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+    <!--<meta http-equiv="refresh" content="2">-->
+  </head>
+  <body>
+    <div id="wrapper">
+      {% include 'nav.html' %}
+      <div id="content">
+        <h2>Edit Customer</h2>
+        <table>
+        <form action="/edit_customer?id={{ customer.key().id() }}" method="post">
+          <tr><td>First Name:</td><td><input type="text" name="fname" value="{{ customer.fname }}" size="10" cols="30"></td></tr>
+          <tr><td>Last Name:</td><td><input type="text" name="lname" value="{{ customer.lname }}" size="10" cols="30"></td></tr>
+          <tr><td>Address:</td><td><textarea name="address" rows="3" cols="60">{{ customer.address }}</textarea></td></tr>
+          <tr><td></td><td><input type="submit" value="Update Customer"><input type="submit" value="Delete Customer" name="delete"></td></tr>
+        </form>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

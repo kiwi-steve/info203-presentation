@@ -147,16 +147,48 @@ class AddCustomer(BaseHandler):
 class ListCustomers(BaseHandler):
     def get(self):
         user = self.session.get('user')
-        customers = []
         query = db.GqlQuery("SELECT * FROM Customer ORDER BY lname ASC")
-        for customer in query:
-            customers.append(customer)
+        if self.session.get('updated'):
+            self.response.out.write(
+                    "<div class=\"flash\">Customer Updated!</div>")
+            del self.session['updated']
         template_values = {
-            'customers': customers,
+            'customers': query,
             'user': user
             }
         template = jinja_environment.get_template('customerlist.html')
         self.response.out.write(template.render(template_values))
+
+
+class EditCustomer(BaseHandler):
+    def get(self):
+        user = self.session.get('user')
+        # Grab the id that was passed in with the URL
+        customer = int(self.request.get('id'))
+        query = db.GqlQuery("SELECT * FROM Customer \
+                WHERE __key__ = KEY('Customer', :1) LIMIT 1", customer)
+        template_values = {
+            'customer': query[0],
+            'user': user
+            }
+        template = jinja_environment.get_template('editcustomer.html')
+        self.response.out.write(template.render(template_values))
+
+    def post(self):
+        logging.info(self.request.get('delete'))
+        customer_id = int(self.request.get('id'))
+        query = db.GqlQuery("SELECT * FROM Customer \
+                WHERE __key__ = KEY('Customer', :1) LIMIT 1", customer_id)
+        customer = query[0]
+        if len(self.request.get('delete')) > 0:
+            customer.delete()
+        else:
+            customer.fname = self.request.get('fname')
+            customer.lname = self.request.get('lname')
+            customer.address = self.request.get('address')
+            customer.put()
+        self.session['updated'] = True
+        self.redirect('/list_customers')
 
 
 class AddStock(BaseHandler):
@@ -289,7 +321,8 @@ app = webapp2.WSGIApplication([
     ('/contact', ContactUs),
     ('/instreet', InStreet),
     ('/add_stock', AddStock),
-    ('/list_stock', ListStock)],
+    ('/list_stock', ListStock),
+    ('/edit_customer', EditCustomer)],
     debug=True,
     config=config)
 

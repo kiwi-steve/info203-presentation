@@ -8,12 +8,14 @@
       {% include 'nav.html' %}
       <div id="content">
         <h2>Add Customer</h2>
+        <table>
         <form action="/add_customer" method="post">
-          <div>First Name: <input type="text" name="fname" size="10" cols="30"></div>
-          <div>Last Name: <input type="text" name="lname" size="10" cols="30"></div>
-          <div>Address: <textarea name="address" rows="3" cols="60"></textarea></div>
-          <div><input type="submit" value="Add Customer"></div>
+          <tr><td>First Name:</td><td><input type="text" name="fname" size="10" cols="30"></td></tr>
+          <tr><td>Last Name:</td><td><input type="text" name="lname" size="10" cols="30"></td></tr>
+          <tr><td>Address:</td><td><textarea name="address" rows="3" cols="60"></textarea></td></tr>
+          <tr><td><input type="submit" value="Add Customer"></td></tr>
         </form>
+        </table>
       </div>
     </div>
   </body>
