@@ -152,6 +152,10 @@ class ListCustomers(BaseHandler):
             self.response.out.write(
                     "<div class=\"flash\">Customer Updated!</div>")
             del self.session['updated']
+        if self.session.get('deleted'):
+            self.response.out.write(
+                    "<div class=\"flash\">Customer Deleted!</div>")
+            del self.session['deleted']
         template_values = {
             'customers': query,
             'user': user
@@ -182,12 +186,13 @@ class EditCustomer(BaseHandler):
         customer = query[0]
         if len(self.request.get('delete')) > 0:
             customer.delete()
+            self.session['deleted'] = True
         else:
             customer.fname = self.request.get('fname')
             customer.lname = self.request.get('lname')
             customer.address = self.request.get('address')
             customer.put()
-        self.session['updated'] = True
+            self.session['updated'] = True
         self.redirect('/list_customers')
 
 
