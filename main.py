@@ -263,6 +263,17 @@ class ListStock(BaseHandler):
         self.response.out.write(template.render(template_values))
 
 
+class Jobs(BaseHandler):
+	def get(self):
+		user = self.session.get('user')
+		template_values = {
+			'user': user
+		}
+		template = jinja_environment.get_template('jobs.html')
+		self.response.out.write(template.render(template_values))
+		
+		
+		
 class EditStock(BaseHandler):
     def get(self):
         user = self.session.get('user')
@@ -383,6 +394,7 @@ app = webapp2.WSGIApplication([
     ('/add_stock', AddStock),
     ('/list_stock', ListStock),
     ('/edit_customer', EditCustomer),
+    ('/jobs', Jobs),
     ('/edit_stock', EditStock)],
     debug=True,
     config=config)
