@@ -299,10 +299,14 @@ class EditStock(BaseHandler):
             # Allow for value in dollars only (45 becomes 4500)
             if not '.' in cost:
                 cost += "00"
+            if cost[-2:] == ".0":
+                cost += "0"
             cost = cost.replace(".", "")
             sell = sellprice.replace("$", "")
             if not '.' in sell:
                 sell += "00"
+            if sell[-2:] == ".0":
+                sell += "0"
             sell = sell.replace(".", "")
             # Now convert to a cents value for integer storage
             stock.costprice = int(cost)
