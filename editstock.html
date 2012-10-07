@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+    <!--<meta http-equiv="refresh" content="2">-->
+  </head>
+  <body>
+    <div id="wrapper">
+      {% include 'nav.html' %}
+      <div id="content">
+        <h2>Edit Stock Item</h2>
+        <table><tr>
+        <form action="/edit_stock?id={{ stock.key().id() }}" method="post">
+          <td>Item Name:</td><td><input type="text" name="itemname" value="{{ stock.itemname }}" size="30" cols="30"></td></tr><tr>
+          <td>Stock Code:</td><td><input type="text" name="stockcode" value="{{ stock.stockcode }}" size="30" cols="30"></td></tr><tr>
+          <td>Description:</td><td><textarea name="description" rows="3" cols="60">{{ stock.description }}</textarea></td></tr><tr>
+          <td>Cost Price:</td><td><input type="text" name="costprice" value="{{ stock.costprice }}" size="30" cols="30"></td></tr><tr>
+          <td>Sell Price:</td><td><input type="text" name="sellprice" value="{{ stock.sellprice }}" size="30" cols="30"></td></tr><tr>
+          <td>Stock Level:</td><td><input type="text" name="stocklevel" value="{{ stock.stocklevel }}" size="30" cols="30"></td></tr><tr>
+          <td>Supplier:</td><td><input type="text" name="supplier" value="{{ stock.supplier }}" size="30" cols="30"></td></tr><tr>
+          <td><input type="submit" value="Update Item"></td></tr>
+        </form>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

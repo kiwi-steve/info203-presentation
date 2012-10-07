@@ -263,6 +263,57 @@ class ListStock(BaseHandler):
         self.response.out.write(template.render(template_values))
 
 
+class EditStock(BaseHandler):
+    def get(self):
+        user = self.session.get('user')
+        # Grab the id that was passed in with the URL
+        stock = int(self.request.get('id'))
+        query = db.GqlQuery("SELECT * FROM Stock \
+                WHERE __key__ = KEY('Stock', :1) LIMIT 1", stock)
+        template_values = {
+            'stock': query[0],
+            'user': user
+            }
+        template = jinja_environment.get_template('editstock.html')
+        self.response.out.write(template.render(template_values))
+
+    def post(self):
+        logging.info("Delete? -- %s --" % self.request.get('delete'))
+        stock_id = int(self.request.get('id'))
+        query = db.GqlQuery("SELECT * FROM Stock \
+                WHERE __key__ = KEY('Stock', :1) LIMIT 1", stock_id)
+        stock = query[0]
+        if len(self.request.get('delete')) > 0:
+            stock.delete()
+            self.session['deleted'] = True
+        else:
+            stock.itemname = self.request.get('itemname')
+            stock.stockcode = self.request.get('stockcode')
+            stock.description = self.request.get('description')
+            costprice = self.request.get('costprice')
+            sellprice = self.request.get('sellprice')
+            stocklevel = self.request.get('stocklevel')
+            stock.supplier = self.request.get('supplier')
+            # Remove $ / . from prices (assume they will be $45.26 or similar)
+            cost = costprice.replace("$", "")
+            # Allow for value in dollars only (45 becomes 4500)
+            if not '.' in cost:
+                cost += "00"
+            cost = cost.replace(".", "")
+            sell = sellprice.replace("$", "")
+            if not '.' in sell:
+                sell += "00"
+            sell = sell.replace(".", "")
+            # Now convert to a cents value for integer storage
+            stock.costprice = int(cost)
+            stock.sellprice = int(sell)
+            # And convert the stock level to an int
+            stock.stocklevel = int(stocklevel)
+            stock.put()
+            self.session['updated'] = True
+        self.redirect('/list_stock')
+
+
 class LogIn(BaseHandler):
     def get(self):
         if self.session.get('user'):
@@ -327,7 +378,8 @@ app = webapp2.WSGIApplication([
     ('/instreet', InStreet),
     ('/add_stock', AddStock),
     ('/list_stock', ListStock),
-    ('/edit_customer', EditCustomer)],
+    ('/edit_customer', EditCustomer),
+    ('/edit_stock', EditStock)],
     debug=True,
     config=config)
 
