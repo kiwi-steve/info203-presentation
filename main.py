@@ -131,7 +131,7 @@ class AddCustomer(BaseHandler):
         template_values = {
             'user': user
             }
-        template = jinja_environment.get_template('entername.html')
+        template = jinja_environment.get_template('addcustomer.html')
         self.response.out.write(template.render(template_values))
 
     def post(self):
@@ -299,13 +299,13 @@ class EditStock(BaseHandler):
             # Allow for value in dollars only (45 becomes 4500)
             if not '.' in cost:
                 cost += "00"
-            if cost[-2:] == ".0":
+            if cost[-2] == ".":
                 cost += "0"
             cost = cost.replace(".", "")
             sell = sellprice.replace("$", "")
             if not '.' in sell:
                 sell += "00"
-            if sell[-2:] == ".0":
+            if sell[-2] == ".":
                 sell += "0"
             sell = sell.replace(".", "")
             # Now convert to a cents value for integer storage
