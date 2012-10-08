@@ -85,7 +85,8 @@ class InStreet(BaseHandler):
                 self.response.out.write("<div class=\"flash\"> \
                         Yes! We work in your neighbourhood.</div>")
             else:
-                self.response.out.write("<div class=\"flash\"> \
+                self.response.out.write("<div class=\"flash\" \
+                        style=\"background-color: #d00; color: white\"> \
                         Sorry! We're not in your area yet.</div>")
             del self.session['yes']
         template_values = {
@@ -179,7 +180,7 @@ class UpdateCustomer(BaseHandler):
 		self.response.out.write(template.render(template_values))
 	def post(self):
 		self.redirect('/')
-		
+
 
 class EditCustomer(BaseHandler):
     def get(self):
@@ -291,9 +292,9 @@ class Jobs(BaseHandler):
 		}
 		template = jinja_environment.get_template('jobs.html')
 		self.response.out.write(template.render(template_values))
-		
-		
-		
+
+
+
 class EditStock(BaseHandler):
     def get(self):
         user = self.session.get('user')
@@ -433,12 +434,12 @@ class Stock(db.Model):
     sellprice = db.IntegerProperty()
     stocklevel = db.IntegerProperty()
     supplier = db.StringProperty()
-	
+
 class Job(db.Model):
     customerId = db.StringProperty()
     stockId = db.StringProperty()
-    
-	
+
+
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': 'info203',

@@ -28,14 +28,16 @@ h1, h2 {
 }
 
 .flash {
-	background-color: blue;
-	color: silver;
-	margin: 5px;
+	background-color: yellowgreen;
+	color: teal;
+	margin: 0 auto 10px;
 	padding: 2px 0;
+    border: 2px solid teal;
 	border-radius: 5px;
 	font-weight: bold;
 	text-align: center;
-	width: 100%;
+	width: 760px;
+    box-shadow: 5px 5px 15px silver;
 }
 
 #user {
