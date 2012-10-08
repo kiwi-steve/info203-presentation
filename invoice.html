@@ -6,34 +6,30 @@
   <body>
     <div id="wrapper">
       {% include 'nav.html' %}
- 
       <div id="content">
-        <h2>Billing</h2>
+        <h2>Stock Used</h2>
+        <h3>Tuesday 9th October, 2012</h3>
         <table>
-        <form action="/edit_customer?id={{ customer.key().id() }}" method="post">
-          <tr><td>First Name:</td><td><input type="text" name="fname" value="{{ customer.fname }}" size="30" cols="30" 	readonly="readonly"></td></tr>
-          <tr><td>Last Name:</td><td><input type="text" name="lname" value="{{ customer.lname }}" size="30" cols="30" readonly="readonly"></td></tr>
-          <tr><td>Address:</td><td><textarea name="address" rows="6" cols="48" readonly="readonly" >{{ customer.address }}</textarea></td></tr>
-          <tr><td>Email:</td><td><input type="text" name="email" size="50" cols="30" readonly="readonly" value="{{ customer.email }}"></td></tr>
-          <tr><td>Phone:</td><td><input type="text" name="phone" size="50" cols="30" readonly="readonly" value="{{ customer.phone }}"></td></tr>
-        </form>
+        <p>{{ customer.fname }}&nbsp;{{ customer.lname }}: {{ customer.address }}</p>
+
+        <br>
+        <table class="list" width="750px">
+            <tr><th>CODE</th><th>NAME</th><th>RETAIL PRICE</th><th>QTY USED</th></tr>
+                <tr title="{{ items[0].description }}" class="odd">
+                <td>{{ items[0].stockcode }}</td>
+                <td>{{ items[0].itemname }}</td>
+                <td>{{ sell[0] }}</td>
+                <td><input type="text" name="phone" size="10" cols="30" value="1"></td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td style="text-align: left;"><input type="submit" value="+" value="add another item..."> add another item...</td>
+                <td></td>
+                <td></td>
+                <td></td>
         </table>
-        
-      <h2>Stock List</h2>
-      <table class="list" width="750px">
-        <tr><th>CODE</th><th>NAME</th><th>RETAIL PRICE</th><th>QTY USED</th></tr>
-        {% for item in items %}
-          <tr title="{{ item.description }}" class="{{ loop.cycle('odd', 'even') }}">
-            <td><a href="/edit_stock?id={{ item.key().id() }}"><b>{{ item.stockcode }}</b></a></td>
-            <td>{{ item.itemname }}</td>
-            <td>{{ sell[loop.index0] }}</td>
-            <td><input type="text" name="phone" size="10" cols="30" value="1"></td>
-          </tr>
-        {% endfor %}
-      </table>
-      <input type="submit" value="+">
-		
-		
+        <br>
+        <form action="/jobs"><input type="submit" value="Complete"></form>
       </div>
     </div>
   </body>

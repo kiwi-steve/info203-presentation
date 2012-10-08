@@ -403,18 +403,23 @@ class Billing(BaseHandler):
 			sell = '$' + sell[:-2] + '.' + sell[-2:]
 			items.append(item)
 			sellprices.append(sell)
-			
-		query = db.GqlQuery("SELECT * FROM Customer")
+
+		customer_id = int(self.request.get('id'))
+		query = db.GqlQuery("SELECT * FROM Customer \
+				WHERE __key__ = KEY('Customer', :1) LIMIT 1", customer_id)
+		customer = query[0]
 		template_values = {
-            'customer': query[0], #take top, we are prototyping
-            'user': user,
-            'items': items,
-            'sell': sellprices
-            }
+			'customer': customer,
+			'user': user,
+			'items': items,
+			'sell': sellprices
+			}
 		template = jinja_environment.get_template('invoice.html')
 		self.response.out.write(template.render(template_values))
+
 	def post(self):
 		self.redirect('/')
+
 
 class Customer(db.Model):
     fname = db.StringProperty()
