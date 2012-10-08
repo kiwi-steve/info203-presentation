@@ -21,6 +21,7 @@
       {% if user == "Bob" %}
         <a href="add_customer"><div class="menu"><span style="color:#BE0000">Add Customer</span></div></a>
         <a href="list_customers"><div class="menu"><span style="color:#BE0000">List Customers</span></div></a>
+        <a href="create_job"><div class="menu"><span style="color:#BE0000"></span>Schedule</div></a>
       {% endif %}
 
       {% if user == "Storeman" %}
@@ -34,7 +35,6 @@
 
       {% if user == "Customer" %}
         <a href="update_customer"><div class="menu"><span style="color:#BE0000">Edit My Account</span></div></a>
-        <a href="create_job"><div class="menu"><span style="color:#BE0000">Request Appointment</span></div></a>
       {% endif %}
 
       {% if user %}

@@ -17,9 +17,11 @@
           <tr><td>Phone:</td><td><input type="text" name="phone" size="50" cols="30" value="{{ customer.phone }}"></td></tr>
           <tr><td>Notes:</td><td><textarea name="notes" rows="6" cols="48">{{ customer.notes }}</textarea></td></tr>
           <tr><td></td><td><input type="submit" value="Update Details"></td></tr>
+          
           {% if user == "Bob" %}
-			<tr><td></td><td><input type="submit" value="Delete Customer" name="delete"></td></tr>
+		      <tr><td></td><td><input type="submit" value="Delete Customer" name="delete"></td></tr>
           {% endif %}
+          
         </form>
         </table>
       </div>
