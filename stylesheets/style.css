@@ -116,7 +116,7 @@ table.list th {
     font-size: 10px;
     font-color: red;
     background-color: silver;
-    min-width: 100px;
+    min-width: 80px;
 }
 
 .text {

@@ -12,7 +12,7 @@
         <tr><th>CODE</th><th>NAME</th><th>COST PRICE</th><th>RETAIL PRICE</th><th>STOCK QTY</th></tr>
         {% for item in items %}
           <tr title="{{ item.description }}" class="{{ loop.cycle('odd', 'even') }}">
-            <td><a href="/edit_stock?id={{ item.key().id() }}"><b>{{ item.stockcode }}</b></a></td>
+            <td style="text-align: left"><a href="/edit_stock?id={{ item.key().id() }}"><img src="stylesheets/edit.png" />&nbsp;<b>{{ item.stockcode }}</b></a></td>
             <td>{{ item.itemname }}</td>
             <td>{{ cost[loop.index0] }}</td>
             <td>{{ sell[loop.index0] }}</td>
