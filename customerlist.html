@@ -9,10 +9,10 @@
     <div id="content">
     <h2>Customer List</h2>
       <table class="list" width="750px">
-      <tr><th>ID</th><th>NAME</th><th>ADDRESS</th></tr>
+      <tr><th>EDIT</th><th>NAME</th><th>ADDRESS</th></tr>
         {% for customer in customers %}
         <tr class="{{ loop.cycle('odd', 'even') }}">
-          <td>{{ loop.index }}.</td>
+          <td><a href="/edit_customer?id={{ customer.key().id() }}"><img src="stylesheets/edit.png" /></a></td>
           <td><b><a href="/edit_customer?id={{ customer.key().id() }}">
                   {{ customer.fname }} {{ customer.lname }}
           </a></b></td>
