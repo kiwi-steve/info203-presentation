@@ -175,7 +175,7 @@ class UpdateCustomer(BaseHandler):
             'customer': query[0], #take top, we are prototyping
             'user': user
             }
-		template = jinja_environment.get_template('editcustomer.html')
+		template = jinja_environment.get_template('updatecustomer.html')
 		self.response.out.write(template.render(template_values))
 	def post(self):
 		self.redirect('/')
@@ -403,7 +403,6 @@ class Billing(BaseHandler):
 			items.append(item)
 			sellprices.append(sell)
 			
-		
 		query = db.GqlQuery("SELECT * FROM Customer")
 		template_values = {
             'customer': query[0], #take top, we are prototyping
@@ -415,7 +414,6 @@ class Billing(BaseHandler):
 		self.response.out.write(template.render(template_values))
 	def post(self):
 		self.redirect('/')
-
 
 class Customer(db.Model):
     fname = db.StringProperty()
