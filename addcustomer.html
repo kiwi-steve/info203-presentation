@@ -4,17 +4,54 @@
     <!--<meta http-equiv="refresh" content="2">-->
   </head>
   <body>
+	 <script type="text/javascript">
+		 
+	  function validate(form_id) {
+       var valid = true;
+	   var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+	   var firstname = document.forms[form_id].elements['fname'].value;
+	   var lastname = document.forms[form_id].elements['lname'].value;
+	   var address = document.forms[form_id].elements['email'].value;
+
+
+	   if(reg.test(address) == false) {
+		  document.getElementById("email_error").innerHTML="* A valid email is required";
+		  valid = false;
+	   } else  document.getElementById("email_error").innerHTML="";
+	   
+	   if(isEmpty(firstname))
+	   {
+		  document.getElementById("fname_error").innerHTML="* Please enter you first name";
+		  valid = false;
+	   } else  document.getElementById("fname_error").innerHTML="";
+	   
+	   if(isEmpty(lastname))
+	   {
+		  document.getElementById("lname_error").innerHTML="* Please enter you last name";
+		  valid = false;
+	   } else  document.getElementById("lname_error").innerHTML="";
+	   
+	   return valid;   
+	}
+	
+	function isEmpty(str) {
+		return (!str || 0 === str.length);
+	}
+
+	</script>
+	
     <div id="wrapper">
       {% include 'nav.html' %}
       <div id="content">
         <h2>Add Customer</h2>
         <table>
-        <form action="/add_customer" method="post">
-          <tr><td>First Name:</td><td><input type="text" name="fname" size="30" cols="30"></td></tr>
-          <tr><td>Last Name:</td><td><input type="text" name="lname" size="30" cols="30"></td></tr>
+        <form id="form_id" action="/add_customer" method="post" onsubmit="javascript:return validate('form_id');">
+          <tr><td>First Name:</td><td><input type="text" name="fname" size="30" cols="30"></td> <td><p id="fname_error"></p></td> </tr>
+          <tr><td>Last Name:</td><td><input type="text" name="lname" size="30" cols="30"></td> <td><p id="lname_error"></p></td> </tr>
           <tr><td>Address:</td><td><textarea name="address" rows="6" cols="48"></textarea></td></tr>
-          <tr><td>Email:</td><td><input type="text" name="email" size="50" cols="30"></td></tr>
-          <tr><td>Phone:</td><td><input type="text" name="phone" size="50" cols="30"></td></tr>
+          <tr><td>Email:</td><td><input type="text" name="email" size="50" cols="30"></td> <td><p id="email_error"></p></td> </tr>
+          <tr><td>Phone:</td><td><input type="text" name="phone" size="50" cols="30"></td> </tr>
           <tr><td><input type="submit" value="Add Customer"></td></tr>
         </form>
         </table>
