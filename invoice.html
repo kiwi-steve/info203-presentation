@@ -6,6 +6,7 @@
   <body>
     <div id="wrapper">
       {% include 'nav.html' %}
+ 
       <div id="content">
         <h2>Billing</h2>
         <table>
@@ -17,6 +18,22 @@
           <tr><td>Phone:</td><td><input type="text" name="phone" size="50" cols="30" readonly="readonly" value="{{ customer.phone }}"></td></tr>
         </form>
         </table>
+        
+      <h2>Stock List</h2>
+      <table class="list" width="750px">
+        <tr><th>CODE</th><th>NAME</th><th>RETAIL PRICE</th><th>QTY USED</th></tr>
+        {% for item in items %}
+          <tr title="{{ item.description }}" class="{{ loop.cycle('odd', 'even') }}">
+            <td><a href="/edit_stock?id={{ item.key().id() }}"><b>{{ item.stockcode }}</b></a></td>
+            <td>{{ item.itemname }}</td>
+            <td>{{ sell[loop.index0] }}</td>
+            <td><input type="text" name="phone" size="10" cols="30" value="1"></td>
+          </tr>
+        {% endfor %}
+      </table>
+      <input type="submit" value="+">
+		
+		
       </div>
     </div>
   </body>

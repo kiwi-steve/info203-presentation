@@ -18,6 +18,7 @@ import webapp2
 import jinja2
 import os
 import logging
+import random
 from google.appengine.ext import db
 from google.appengine.api import mail
 from webapp2_extras import sessions
@@ -209,6 +210,7 @@ class EditCustomer(BaseHandler):
             customer.address = self.request.get('address')
             customer.email = self.request.get('email')
             customer.phone = self.request.get('phone')
+            customer.notes = self.request.get('notes')
             customer.put()
             self.session['updated'] = True
         self.redirect('/list_customers')
@@ -388,6 +390,31 @@ class CreateJob(BaseHandler):
 		self.response.out.write(template.render(template_values))
 
 
+class Billing(BaseHandler):
+	def get(self):
+		user = self.session.get('user')
+		items = []
+		costprices = []
+		sellprices = []
+		query = db.GqlQuery("SELECT * FROM Stock ORDER BY stockcode ASC")
+		for item in query:
+			sell = str(item.sellprice)
+			sell = '$' + sell[:-2] + '.' + sell[-2:]
+			items.append(item)
+			sellprices.append(sell)
+			
+		
+		query = db.GqlQuery("SELECT * FROM Customer")
+		template_values = {
+            'customer': query[0], #take top, we are prototyping
+            'user': user,
+            'items': items,
+            'sell': sellprices
+            }
+		template = jinja_environment.get_template('invoice.html')
+		self.response.out.write(template.render(template_values))
+	def post(self):
+		self.redirect('/')
 
 
 class Customer(db.Model):
@@ -398,7 +425,7 @@ class Customer(db.Model):
     phone = db.StringProperty()
     postcode = db.IntegerProperty()
     pooldetails = db.StringProperty(multiline=True)
-
+    notes = db.StringProperty(multiline=True)
 
 class Stock(db.Model):
     itemname = db.StringProperty()
@@ -434,7 +461,7 @@ app = webapp2.WSGIApplication([
     ('/edit_customer', EditCustomer),
     ('/update_customer', UpdateCustomer),
     ('/jobs', Jobs),
-    ('/billing', Jobs),
+    ('/billing', Billing),
     ('/create_job', CreateJob),
     ('/edit_stock', EditStock)],
     debug=True,
