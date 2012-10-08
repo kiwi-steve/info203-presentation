@@ -2,6 +2,11 @@
   <head>
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
     <!--<meta http-equiv="refresh" content="2">-->
+    <script>
+        function changeAddress(data) {
+            document.getElementById("addr").value = data.value
+        }
+    </script>
   </head>
   <body>
     <div id="wrapper">
@@ -9,17 +14,17 @@
       <div id="content">
         <h2>Create Job</h2>
         <table>
-        <form action="/create_job?id=0" method="post">
+        <form>
 			<iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;mode=WEEK&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=info203.presentation%40gmail.com&amp;color=%232952A3&amp;ctz=Pacific%2FAuckland" style=" border-width:0 " width="750" height="400" frameborder="0" scrolling="no"></iframe>
 			<tr><td>Customer:</td>
 			<td>
-			<select name="mydropdown">
+			<select name="mydropdown" onchange="changeAddress(this)">
 		    {% for customer in customers %}
-				<option value="{{ customer.fname }}">{{ customer.fname }} {{ customer.lname }}</option>
+				<option value="{{ customer.address }}">{{ customer.fname }} {{ customer.lname }}</option>
 			{% endfor %}
 			</select>
 			</td></tr>
-          <tr><td>Address:</td><td><textarea name="address" rows="6" cols="48">{{ customers[0].address }}</textarea></td></tr>
+          <tr><td>Address:</td><td><textarea id="addr" name="address" rows="6" cols="48">{{ customers[0].address }}</textarea></td></tr>
           <tr><td></td><td><input type="submit" value="Update Details"></td></tr>
         </form>
         
