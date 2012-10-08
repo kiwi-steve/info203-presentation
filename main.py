@@ -139,6 +139,8 @@ class AddCustomer(BaseHandler):
         customer.fname = self.request.get('fname')
         customer.lname = self.request.get('lname')
         customer.address = self.request.get('address')
+        customer.email = self.request.get('email')
+        customer.phone = self.request.get('phone')
         customer.put()
         self.session['added'] = True
         self.redirect('/add_customer')
@@ -163,6 +165,20 @@ class ListCustomers(BaseHandler):
         template = jinja_environment.get_template('customerlist.html')
         self.response.out.write(template.render(template_values))
 
+
+class UpdateCustomer(BaseHandler):
+	def get(self):
+		user = self.session.get('user')
+		query = db.GqlQuery("SELECT * FROM Customer")
+		template_values = {
+            'customer': query[0], #take top, we are prototyping
+            'user': user
+            }
+		template = jinja_environment.get_template('editcustomer.html')
+		self.response.out.write(template.render(template_values))
+	def post(self):
+		self.redirect('/')
+		
 
 class EditCustomer(BaseHandler):
     def get(self):
@@ -191,6 +207,8 @@ class EditCustomer(BaseHandler):
             customer.fname = self.request.get('fname')
             customer.lname = self.request.get('lname')
             customer.address = self.request.get('address')
+            customer.email = self.request.get('email')
+            customer.phone = self.request.get('phone')
             customer.put()
             self.session['updated'] = True
         self.redirect('/list_customers')
@@ -358,10 +376,26 @@ class LogOut(BaseHandler):
         self.redirect('/')
 
 
+class CreateJob(BaseHandler):
+    def get(self):
+		user = self.session.get('user')
+		query = db.GqlQuery("SELECT * FROM Customer")
+		template_values = {
+            'customer': query[0], #take top, we are prototyping
+            'user': user
+            }
+		template = jinja_environment.get_template('createjob.html')
+		self.response.out.write(template.render(template_values))
+
+
+
+
 class Customer(db.Model):
     fname = db.StringProperty()
     lname = db.StringProperty()
     address = db.StringProperty(multiline=True)
+    email = db.StringProperty()
+    phone = db.StringProperty()
     postcode = db.IntegerProperty()
     pooldetails = db.StringProperty(multiline=True)
 
@@ -374,8 +408,12 @@ class Stock(db.Model):
     sellprice = db.IntegerProperty()
     stocklevel = db.IntegerProperty()
     supplier = db.StringProperty()
-
-
+	
+class Job(db.Model):
+    customerId = db.StringProperty()
+    stockId = db.StringProperty()
+    
+	
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': 'info203',
@@ -394,7 +432,10 @@ app = webapp2.WSGIApplication([
     ('/add_stock', AddStock),
     ('/list_stock', ListStock),
     ('/edit_customer', EditCustomer),
+    ('/update_customer', UpdateCustomer),
     ('/jobs', Jobs),
+    ('/billing', Jobs),
+    ('/create_job', CreateJob),
     ('/edit_stock', EditStock)],
     debug=True,
     config=config)

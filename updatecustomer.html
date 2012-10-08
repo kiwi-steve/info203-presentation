@@ -7,18 +7,15 @@
     <div id="wrapper">
       {% include 'nav.html' %}
       <div id="content">
-        <h2>Edit Customer</h2>
+        <h2>Update my details</h2>
         <table>
-        <form action="/edit_customer?id={{ customer.key().id() }}" method="post">
+        <form action="/update_customer?id={{ customer.key().id() }}" method="post">
           <tr><td>First Name:</td><td><input type="text" name="fname" value="{{ customer.fname }}" size="30" cols="30" 	readonly="readonly"></td></tr>
           <tr><td>Last Name:</td><td><input type="text" name="lname" value="{{ customer.lname }}" size="30" cols="30" readonly="readonly"></td></tr>
           <tr><td>Address:</td><td><textarea name="address" rows="6" cols="48">{{ customer.address }}</textarea></td></tr>
           <tr><td>Email:</td><td><input type="text" name="email" size="50" cols="30" value="{{ customer.email }}"></td></tr>
           <tr><td>Phone:</td><td><input type="text" name="phone" size="50" cols="30" value="{{ customer.phone }}"></td></tr>
           <tr><td></td><td><input type="submit" value="Update Details"></td></tr>
-          {% if user == "Bob" %}
-			<tr><td></td><td><input type="submit" value="Delete Customer" name="delete"></td></tr>
-          {% endif %}
         </form>
         </table>
       </div>
