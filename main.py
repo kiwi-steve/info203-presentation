@@ -384,7 +384,7 @@ class CreateJob(BaseHandler):
 		user = self.session.get('user')
 		query = db.GqlQuery("SELECT * FROM Customer")
 		template_values = {
-            'customer': query[0], #take top, we are prototyping
+            'customers': query,
             'user': user
             }
 		template = jinja_environment.get_template('createjob.html')

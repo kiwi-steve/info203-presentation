@@ -9,12 +9,21 @@
       <div id="content">
         <h2>Create Job</h2>
         <table>
-        <form action="/create_job?id={{ customer.key().id() }}" method="post">
-          <tr><td>Address:</td><td><textarea name="address" rows="6" cols="48">{{ customer.address }}</textarea></td></tr>
-          <tr><td>Phone:</td><td><input type="text" name="phone" size="50" cols="30" value="{{ customer.phone }}"></td></tr>
+        <form action="/create_job?id=0" method="post">
+	    <iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;mode=WEEK&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=rhem.g.munro%40gmail.com&amp;color=%232952A3&amp;ctz=Pacific%2FAuckland" style=" border-width:0 " width="750" height="400" frameborder="0" scrolling="no"></iframe>
+			<tr><td>Customer:</td>
+			<td>
+			<select name="mydropdown">
+		    {% for customer in customers %}
+				<option value="{{ customer.fname }}">{{ customer.fname }} {{ customer.lname }}</option>
+			{% endfor %}
+			</select>
+			</td></tr>
+          <tr><td>Address:</td><td><textarea name="address" rows="6" cols="48">{{ customers[0].address }}</textarea></td></tr>
           <tr><td></td><td><input type="submit" value="Update Details"></td></tr>
-			<iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTabs=0&amp;mode=WEEK&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=rhem.g.munro%40gmail.com&amp;color=%232952A3&amp;ctz=Pacific%2FAuckland" style=" border-width:0 " width="750" height="400" frameborder="0" scrolling="no"></iframe>
         </form>
+        
+        
         </table>
         
       </div>
