@@ -9,21 +9,17 @@
       <div id="content">
         <h2>Log in as a particular user</h2>
         <form action="/login" method="post">
-          <p>Username: <input type="text" /> </p>
-          <p>Password: <input type="password" /> <input type="submit" value="LoginButton"> </p>
-
+          <table><tr><td>Username:</td><td><input type="text" /> </td></tr>
+          <tr><td>Password:</td><td><input type="password" /></td></tr>
+          <tr><td></td><td><input type="submit" value="Log In"> </td></tr>
+          </table>
+          <h3>Demo Login Accounts:</h3>
           <p><input type="radio" name="user" value="Customer" checked="checked" > A. Customer</p>
           <p><input type="radio" name="user" value="Storeman"> Storeman (Dock Worker)</p>
           <p><input type="radio" name="user" value="Staff"> Staff (Pool Technician)</p>
           <p><input type="radio" name="user" value="Bob"> Bob (The Boss)</p>
           <p><input type="radio" name="user" value="Admin"> Administrator (The IT Guy)</p>
-<<<<<<< HEAD
-         
-=======
-          
-          <p>Password: <input type="password" /> <input type="submit" value="Log In"> </p>
-          
->>>>>>> ec458bb47fe20712c4c3b16531ca4da7deb21daf
+          <input type="submit" value="Log In">
         </form>
       </div>
     </div>
