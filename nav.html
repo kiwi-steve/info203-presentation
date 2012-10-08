@@ -1,5 +1,9 @@
     <link href='http://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet' type='text/css'>
-    <h1>&nbsp;Bob's Pool Service</h1>
+    <script type="text/javascript" src="stylesheets/ripple.js"></script>
+	<div id="bob" style="padding:0 0 10px 10px;"></div>
+    <script type="text/javascript">
+		ripple('stylesheets/logo.png', document.getElementById('bob'));
+	</script>
     {% if user %}
       <a href="login" style="text-decoration: none;"><div id="user">
         Welcome, {{user}}
